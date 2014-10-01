@@ -4,7 +4,7 @@ require_relative 'spec_helper'
 require_relative '../03_word_count'
 
 describe 'word count' do
-  context 'return a Hash with word counts' do
+  context 'Hash with word counts in first file' do
     subject(:res) { word_count("#{File.dirname(__FILE__)}/words/01.txt") }
     it { is_expected.to be_an_instance_of Hash }
     it { expect(res.size).to be 18 }
@@ -14,7 +14,7 @@ describe 'word count' do
     it { expect(res[:simple]).to be 2 }
   end
 
-  context 'should return a Hash with word counts' do
+  context 'Hash with word counts in second file' do
     subject(:res) { word_count("#{File.dirname(__FILE__)}/words/02.txt") }
     it { is_expected.to be_an_instance_of Hash }
     it { expect(res.key?(:there)).to be true }
@@ -23,7 +23,7 @@ describe 'word count' do
     it { expect(res[:oh]).to be 3 }
   end
 
-  it 'should work with Hamlet monologue' do
+  context 'Hamlet monologue' do
     subject(:res) { word_count("#{File.dirname(__FILE__)}/words/03.txt") }
     it { is_expected.to be_an_instance_of Hash }
     it { expect(res.key?(:to)).to be true }
