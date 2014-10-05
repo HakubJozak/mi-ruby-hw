@@ -28,10 +28,10 @@ describe 'Odd iterator' do
   context 'should work for float' do
     subject(:res) { odd_elements([15, 4.5, 3.14, 2.7181, 2, 0.123]) }
     it { is_expected.to be_an_instance_of Array }
-    it { expect(res.size).to be 3 }
-    it { expect(res[0]).to be 4.5 }
-    it { expect(res[1]).to be 2.7181 }
-    it { expect(res[2]).to be 0.123 }
+    it { expect(res.size).to eq 3 }
+    it { expect(res[0]).to eq 4.5 }
+    it { expect(res[1]).to eq 2.7181 }
+    it { expect(res[2]).to eq 0.123 }
   end
 
   context 'should yield' do
