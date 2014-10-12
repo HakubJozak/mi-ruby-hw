@@ -17,7 +17,7 @@ describe 'array hw' do
       expect(ary.size).to eq 3
     end
 
-    context 'each' do
+    describe '#each' do
       subject(:data) { [2, 5, 3] }
       it { expect(data[0]).to eq 2 }
       it { expect(data[1]).to eq 5 }
@@ -43,7 +43,7 @@ describe 'array hw' do
 
     end
 
-    context 'reverse' do
+    describe '#reverse' do
       let(:data) { [2, 5, 3] }
       let(:revdata) { [3, 5, 2] }
 
@@ -67,7 +67,7 @@ describe 'array hw' do
       end
     end
 
-    context 'pop' do
+    describe '#pop' do
       let(:data) { [2, 5, 3] }
 
       it 'have method pop' do
@@ -83,7 +83,7 @@ describe 'array hw' do
       end
     end
 
-    context 'select' do
+    describe '#select' do
       let(:data) { [1, 2, 3, 4, 5, 6] }
 
       it 'selects even numbers' do
@@ -92,8 +92,8 @@ describe 'array hw' do
       end
     end
 
-    context 'map' do
-      context 'strings' do
+    describe '#map' do
+      describe 'strings' do
         let(:data) { %w( a b c d) }
 
         it 'iterates over elements and collect block results' do
@@ -107,7 +107,7 @@ describe 'array hw' do
         end
       end
 
-      context 'numbers' do
+      describe '#numbers' do
         let(:data) { [1, 2, 3, 4] }
 
         it 'does not modify original array' do
@@ -118,7 +118,7 @@ describe 'array hw' do
       end
     end
 
-    context 'clear' do
+    describe '#clear' do
       let(:data) { %w( a b c d) }
 
       it 'removes all elements' do
@@ -126,7 +126,7 @@ describe 'array hw' do
       end
     end
 
-    context 'include?' do
+    describe '#include?' do
       let(:data) { [2, 5, 15, 23] }
 
       it 'returns true if an element is in the array' do
@@ -140,14 +140,14 @@ describe 'array hw' do
       end
     end
 
-    context 'max' do
+    describe '#max' do
       let(:data) { (1..50).to_a }
 
       it 'returns maximum value' do
         expect(subject.max).to eq 50
       end
 
-      context 'with block' do
+      describe 'with block' do
         let(:data) { %w(dog horse albatross duck) }
 
         it 'compares length of strings' do
