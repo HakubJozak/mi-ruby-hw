@@ -5,124 +5,136 @@ require_relative '../my_array'
 describe 'array hw' do
   shared_examples 'MyArray' do
 
-    subject { MyArray.new(data) }
+    subject(:array) { described_class.new(data) }
+    let(:data) { [1, 2, 3] }
 
-    it 'has a method for determining size' do
-      ary = MyArray.new
-      expect(ary.size).to eq 0
+
+    describe '#initialize' do
+      it 'copies data from a given array' do
+        ary = described_class.new([1, 2, 3])
+        expect(ary.size).to eq 3
+      end
     end
 
-    it 'copies data from an Array' do
-      ary = MyArray.new([1, 2, 3])
-      expect(ary.size).to eq 3
+    describe '#size' do
+      it 'reflects a number of elements' do
+        expect(array.size).to eql 3
+      end
+
+      context 'for an empty array' do
+        subject { described_class.new.size }
+
+        it { is_expected.to eq 0 }
+      end
+    end
+
+    describe '#[]' do
+      let(:data) { [2, 5, 3] }
+
+      specify { expect(data[0]).to eq 2 }
+      specify { expect(data[1]).to eq 5 }
+      specify { expect(data[2]).to eq 3 }
     end
 
     describe '#each' do
-      subject(:data) { [2, 5, 3] }
-      it { expect(data[0]).to eq 2 }
-      it { expect(data[1]).to eq 5 }
-      it { expect(data[2]).to eq 3 }
-
-      it 'iterate over data' do
+      it 'iterates over data' do
         d = []
-        subject.each do |i|
+        array.each do |i|
           d << i
         end
         expect(d).to eq data
       end
 
-      it 'works without passed block' do
-        subject.each
-      end
+      context 'without a given block' do
+        subject(:each) { array.each }
 
-      it 'returns an Enumerator' do
-        res = subject.each
-        expect(res.class).to eq Enumerator
-        expect(res.to_a).to eq data
+        it 'returns an Enumerator' do
+          expect(each.class).to eq Enumerator
+          expect(each.to_a).to eq data
+        end
       end
-
     end
 
-    describe '#reverse' do
+    describe 'reverse methods' do
       let(:data) { [2, 5, 3] }
       let(:revdata) { [3, 5, 2] }
 
-      it 'supports reverse_each' do
-        expect(subject.reverse_each.to_a).to eq(revdata)
+      describe '#reverse_each' do
+        it 'enumerates in reverse' do
+          expect(array.reverse_each.to_a).to eq(revdata)
+        end
       end
 
-      it 'works without passed block' do
-        subject.reverse
+      describe '#reverse' do
+        it 'returns an Array' do
+          res = array.reverse
+          expect(res.class).to eq Array
+          expect(res.to_a).to eq revdata
+        end
       end
 
-      it 'returns Array' do
-        res = subject.reverse
-        expect(res.class).to eq Array
-        expect(res.to_a).to eq revdata
-      end
-
-      it 'support self-modifying reverse!' do
-        subject.reverse!
-        expect(subject.each.to_a).to eq([3, 5, 2])
+      describe '#reverse!' do
+        it 'modifies itself' do
+          array.reverse!
+          expect(array.each.to_a).to eq([3, 5, 2])
+        end
       end
     end
 
     describe '#pop' do
       let(:data) { [2, 5, 3] }
 
-      it 'have method pop' do
-        subject.pop
-      end
-
-      it 'return the last element' do
-        expect(subject.pop).to eq 3
+      it 'returns the last element' do
+        expect(array.pop).to eq 3
       end
 
       it 'removes the last element' do
-        expect { subject.pop }.to change { subject.size }.from(3).to(2)
+        expect { array.pop }.to change { array.size }.from(3).to(2)
       end
     end
 
     describe '#select' do
       let(:data) { [1, 2, 3, 4, 5, 6] }
 
-      it 'selects even numbers' do
-        res = subject.select(&:even?)
+      it 'selects elements matching a given block' do
+        res = array.select(&:even?)
         expect(res).to eq [2, 4, 6]
       end
     end
 
     describe '#map' do
-      describe 'strings' do
-        let(:data) { %w( a b c d) }
-
-        it 'iterates over elements and collect block results' do
-          res = subject.map { |x| x << '!' }
-          expect(res).to eq %w( a! b! c! d!)
-        end
-
-        it 'returns Enumerator' do
-          res = subject.map
+      context 'without a given block' do
+        it 'returns an Enumerator' do
+          res = array.map
           expect(res.class).to eq Enumerator
         end
       end
 
-      describe '#numbers' do
+      context 'with strings' do
+        let(:data) { %w(a b c d) }
+
+        it 'iterates over elements and collects block results' do
+          res = array.map { |x| x + '!' }
+          expect(res).to eq %w( a! b! c! d!)
+        end
+      end
+
+      context 'with numbers' do
         let(:data) { [1, 2, 3, 4] }
 
-        it 'does not modify original array' do
-          res = subject.map { |x| x**2 }
+        it 'does not modify the original array' do
+          res = array.map { |x| x**2 }
           expect(res).to eq([1, 4, 9, 16])
-          expect(subject.each.to_a).to eq([1, 2, 3, 4])
+          expect(array.each.to_a).to eq([1, 2, 3, 4])
         end
       end
     end
 
     describe '#clear' do
-      let(:data) { %w( a b c d) }
+      let(:data) { %w(a b c d) }
 
       it 'removes all elements' do
-        expect { subject.clear }.to change { subject.size }.from(4).to(0)
+        expect { array.clear }.to change { array.size }.from(4).to(0)
       end
     end
 
@@ -130,12 +142,12 @@ describe 'array hw' do
       let(:data) { [2, 5, 15, 23] }
 
       it 'returns true if an element is in the array' do
-        res = subject.include?(5)
+        res = array.include?(5)
         expect(res).to eq true
       end
 
-      it 'returns false if an element is not in array' do
-        res = subject.include?('duck')
+      it 'returns false if an element is not in the array' do
+        res = array.include?('duck')
         expect(res).to eq false
       end
     end
@@ -143,15 +155,15 @@ describe 'array hw' do
     describe '#max' do
       let(:data) { (1..50).to_a }
 
-      it 'returns maximum value' do
-        expect(subject.max).to eq 50
+      it 'returns the maximum value' do
+        expect(array.max).to eq 50
       end
 
-      describe 'with block' do
+      context 'with a given block' do
         let(:data) { %w(dog horse albatross duck) }
 
-        it 'compares length of strings' do
-          res = subject.max { |a, b| a.length <=> b.length }
+        it 'compares by a given block' do
+          res = array.max { |a, b| a.length <=> b.length }
           expect(res).to eq 'albatross'
         end
       end
