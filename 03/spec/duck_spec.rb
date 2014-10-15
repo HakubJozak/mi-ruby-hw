@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require_relative '../duck'
-require 'spec_helper'
+require_relative 'spec_helper'
 
 describe 'Duck' do
 
