@@ -23,9 +23,9 @@ BRANCH=$1
 git checkout master
 echo_branch
 
-echo "Updating from origin"
+echo "Merging from origin"
 git fetch origin -v
-git rebase origin/master
+git merge origin/master
 
 echo "Updating from upstream"
 git fetch upstream
