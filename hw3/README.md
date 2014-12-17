@@ -19,15 +19,13 @@ Je možné použít [postgreapp](http://postgresapp.com/), případně instalace
 
 ## Vytvoření databáze
 
-    $ sudo su psql
-    $ su postgres
+    $ sudo -s
+    $ su - postgres
     $ psql
     psql (9.1.10)
 
     postgres=# CREATE USER movies WITH PASSWORD 'm0vi3zzrulezz!';
-      CREATE ROLE
-    postgres=#  ALTER USER movies CREATEDB;
-      ALTER ROLE
+    postgres=# ALTER USER movies CREATEDB;
 
 přihlašovací údaje k databázi naleznete v `config/database.yml`
 
