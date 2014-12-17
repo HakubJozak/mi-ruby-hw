@@ -15,13 +15,13 @@ describe 'MlDistance' do
     it 'should compute cosine similarity' do
       x = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
       y = [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
-      expect(x.cosine(y)).to eq be_within(DELTA).of(0.33333333333333337)
+      expect(x.cosine(y)).to be_within(DELTA).of(0.33333333333333337)
     end
 
     it 'should compute cosine similarity' do
       x = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
       y = [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1]
-      expect(x.cosine(y)).to eq be_within(DELTA).of(0.5163977794943222)
+      expect(x.cosine(y)).to be_within(DELTA).of(0.5163977794943222)
     end
   end
 end
