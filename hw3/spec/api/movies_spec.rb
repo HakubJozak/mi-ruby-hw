@@ -3,6 +3,8 @@ require 'open-uri'
 
 describe Movies::MoviesAPI do
 
+  DELTA = 1e-8
+
   it 'shows list of movies, default limit is 20' do
     with_api(Movies::App) do
       get_request(path: '/v1/movies') do |c|
@@ -103,7 +105,7 @@ describe Movies::MoviesAPI do
           get_request(path: '/v1/movies/rating/1') do |c|
             resp = JSON.parse(c.response)
             expect(resp.first['title']).to eq 'Toy Story (1995)'
-            expect(resp.first['rating_avg']).to eq '3.8929503916449086'
+            expect(resp.first['rating_avg'].to_f).to be_within(DELTA).of(3.8929503916449086)
             expect(resp.first['movie_id']).to eq 1
           end
         end
@@ -114,7 +116,7 @@ describe Movies::MoviesAPI do
           get_request(path: '/v1/movies/rating/333') do |c|
             resp = JSON.parse(c.response)
             expect(resp.first['title']).to eq 'Game, The (1997)'
-            expect(resp.first['rating_avg']).to eq '3.5893719806763285'
+            expect(resp.first['rating_avg'].to_f).to be_within(DELTA).of(3.5893719806763285)
             expect(resp.first['movie_id']).to eq 333
           end
         end

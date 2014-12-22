@@ -57,7 +57,7 @@ describe Movies::UsersAPI do
         get_request(path: '/v1/users/100/avg_rating') do |c|
           resp = JSON.parse(c.response)
           expect(resp).to include 'avg_rating'
-          expect(resp['avg_rating']).to eq 3.0294117647058822
+          expect(resp['avg_rating']).to be_within(DELTA).of(3.0294117647058822)
         end
       end
     end

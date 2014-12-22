@@ -50,7 +50,7 @@ describe User do
   context 'k-nn' do
     it 'find k-nearest neighours (cosine)' do
       user = User.find(1)
-      res = user.knn_join(5, :cosine)
+      res = user.knn(5, :cosine)
       expect(res).to eq [823, 514, 864, 592, 521]
     end
 
