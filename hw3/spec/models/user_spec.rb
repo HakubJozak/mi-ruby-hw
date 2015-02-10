@@ -64,7 +64,7 @@ describe User do
       #  puts "b #{e}: " << b.to_s
       #  puts "dist = #{Distance.euclidean(a, b)}"
       #end
-      expect(res).to eq [405, 181, 774, 655, 537, 653, 660, 896, 727, 843]
+      expect(res).to eq [182, 723, 248, 51, 124, 202, 162, 700, 55, 209]
     end
   end
 end

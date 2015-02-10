@@ -173,9 +173,9 @@ Na počítání podobnosti se často používá Cosinova vzdálenost, případn�
     u = [5, 4, 5, 5, 2, 4, 5, 5, 3, 3, 2, 5, 2, 2, 1, 5]
     v = [3, 1, 1, 1, 1, 2, 1, 3, 1, 2, 2, 2, 5, 2, 1, 4]
 
-    eucl_dist(u, v) = 2.4238399287081647
+    eucl_dist(u, v) = 9.695359714832659
 
-    cosine_dist(u, v) = 0.8110151240415794
+    cosine_dist(u, v) = 0.188985
 
 V rámci databáze filmů se často stává, že uživatelé ohodnotili pouze malé procento
 stejných filmů. Pokud bychom porovnávali pouze filmy hodnocené oběmi uživateli
@@ -185,8 +185,8 @@ ohodnotili jediný společný film a dali mu stejné hodnocení.
 Jedním z přístupů jak tomu zabránit je normalizace na sjednocené množině filmů
 a u filmů, které jeden z uživatelů neviděl doplníme 0
 
-    u = [0, 5, 3, 2, 0, 1, 0]
-    v = [1, 3, 0, 0, 4, 0, 1]
+      u = [0, 5, 3, 2, 0, 1, 0]
+      v = [1, 3, 0, 0, 4, 0, 1]
 
 Tento přístup používá refernční řešení (očekávané řazení v testech). U Euclidovské vzdálenosti
 normalizujeme výsledek délkou vektoru.
