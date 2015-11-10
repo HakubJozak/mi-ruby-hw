@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class TennisScorer
 
-  %w( 0 15 30 40 )
+  NAMES = %w( 0 15 30 40 )
 
   def initialize
     @server = 0
@@ -10,11 +10,14 @@ class TennisScorer
   
   # FIXME
   def score
-    if @server > 0
-      '15-0'
-    else
-      '0-0'
-    end
+    [ @server, @receiver ].map do |v|
+      over, i = v.divmod(4)
+      
+      if over == 0
+        NAMES[i]
+      end
+    end.join('-')
+
   end
 
   def server!
