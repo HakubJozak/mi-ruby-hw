@@ -12,13 +12,30 @@ class Roman
     @value = value
   end
 
+  def to_i
+    @value
+  end
+
   def to_s
     value = @value
     roman = ''
     FACTORS.each do |code, factor|
       count, value = value.divmod(factor)
-      roman << code unless count.zero?
+      count.times { roman << code }
     end
     roman
   end
+
+  def +(other)
+    Roman.new(@value + other.to_i)
+  end
+
 end
+
+I = Roman.new(1).freeze
+II = Roman.new(2).freeze
+V = Roman.new(5).freeze
+D = Roman.new(500).freeze
+M = Roman.new(1000).freeze
+
+
