@@ -8,24 +8,30 @@ describe TennisScorer do
 
   describe '#score'
 
-    context 'at the beginning' do
-      its(:score) { should == '0-0' }
+    it 'begins with' do
+      expect(scorer.score).to eq '0-0'
     end
 
     context 'server wins a point' do
       before do
-        # ...
+        scorer.server!
       end
-      its(:score) { should == '15-0' }
+
+      it { expect(scorer.score).to eq '15-0' }
     end
 
-    context 'receiver wins a point' do
-      its(:score) { should == '0-15' }
-    end
+    # context 'receiver wins a point' do
+    #   before { scorer.receiver }
+    #   expect(scorer.score).to eq '0 - 15'
+    # end
 
-    context 'both win a point' do
-      its(:score) { should == '15-15' }
-    end
+    # context 'both win a point' do
+    #   before {
+    #     scorer.receiver!
+    #     scorer.server
+    #   }
+    #   expect(scorer.score).to eq '15 - 15'
+    # end
 
-    # ...
+
 end
