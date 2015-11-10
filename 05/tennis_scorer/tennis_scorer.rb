@@ -4,56 +4,51 @@ require 'pry'
 class TennisScorer
 
   def initialize
-    @server = 0
-    @receiver = 0
+    @players = [ 0,0 ]
   end
   
   def score
-    s, i = @server.divmod(4)
-    r, j = @receiver.divmod(4)    
-
-    puts s,r
-    
-    if s == 0 && r == 0
-      basic_score(i,j)
+    if @players == [ 40,40 ]
+      'Deuce'
     else
-      score_with_advantage(i,j)
+      @players.map(&:to_s).join('-')
     end
   end
 
   def server!
-    @server += 1
+    increase!(0,1)
   end
 
   def receiver!
-    @receiver += 1    
+    increase!(1,0)
   end
 
   private
-  
-  def score_with_advantage(i,j)
-    diff = i-j
 
-    puts diff
-    
-    case diff
-    when 0
-      'Deuce'
-    when 1
-      'ADV-40'
-    when 2
-      '1-0'
-    when -1
-      '40-ADV'
-    when -2      
-      '0-1'
+  def increase!(who,other)
+    a = @players[who]
+    b = @players[other]
+
+    case
+    when a == 0
+      @players[who] = 15
+    when a == 15
+      @players[who] = 30
+    when a == 30
+      @players[who] = 40
+    when a == 40
+      if b == :ADV
+        @players[who] = 40
+        @players[other] = 40
+      elsif b == 40
+        @players[who] = :ADV
+      else
+        @players[who] = 1
+        @players[other] = 'x'
+      end
+    else
+      raise 'Oh darn. Unxptected case!'
     end
-  end
-
-  def basic_score(i,j)
-    [ i, j ].map do |v|
-      %w( 0 15 30 40 )[v]
-    end.join('-')
   end
 
 

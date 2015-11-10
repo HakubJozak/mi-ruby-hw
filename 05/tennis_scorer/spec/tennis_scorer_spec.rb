@@ -65,12 +65,12 @@ describe TennisScorer do
 
     context 'game won by server' do
       before { 4.times { scorer.server! } }
-      it { expect(scorer.score).to eq '1-0' }
+      it { expect(scorer.score).to eq '1-x' }
     end
 
     context 'game won by receiver' do
-      before { 4.times { scorer.server! } }
-      it { expect(scorer.score).to eq '0-1' }
+      before { 4.times { scorer.receiver! } }
+      it { expect(scorer.score).to eq 'x-1' }
     end    
 
 
@@ -82,7 +82,7 @@ describe TennisScorer do
         }
         2.times { scorer.server! }
       }
-      it { expect(scorer.score).to eq '1-0' }
+      it { expect(scorer.score).to eq '1-x' }
     end
 
 
