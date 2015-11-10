@@ -39,5 +39,61 @@ describe TennisScorer do
       it { expect(scorer.score).to eq '40-30' }
     end
 
+    context 'break ball' do
+      before {
+        2.times { scorer.server! }
+        3.times { scorer.receiver! }
+      }
+      it { expect(scorer.score).to eq '30-40' }
+    end
+
+    context 'deuce' do
+      before { 4.times {
+                 scorer.server!
+                 scorer.receiver!
+               }}
+      it { expect(scorer.score).to eq 'Deuce' }
+    end
+
+    context 'deuce after battle' do
+      before { 6.times {
+                 scorer.server!
+                 scorer.receiver!
+               }}
+      it { expect(scorer.score).to eq 'Deuce' }
+    end
+
+    context 'game won by server' do
+      before { 4.times { scorer.server! } }
+      it { expect(scorer.score).to eq '1-0' }
+    end
+
+    context 'game won by receiver' do
+      before { 4.times { scorer.server! } }
+      it { expect(scorer.score).to eq '0-1' }
+    end    
+
+
+    context 'game won by server after battle' do
+      before {
+        10.times {
+          scorer.server!
+          scorer.receiver!
+        }
+        2.times { scorer.server! }
+      }
+      it { expect(scorer.score).to eq '1-0' }
+    end
+
+
+    context 'advantage server' do
+      before {
+        6.times { scorer.server! }
+        5.times { scorer.receiver! }        
+      }
+      it { expect(scorer.score).to eq 'ADV-40' }
+    end    
+
+    
 
 end
