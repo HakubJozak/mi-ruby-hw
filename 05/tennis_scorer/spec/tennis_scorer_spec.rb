@@ -88,8 +88,12 @@ describe TennisScorer do
 
     context 'advantage server' do
       before {
-        6.times { scorer.server! }
-        5.times { scorer.receiver! }        
+        6.times {
+          scorer.server!
+          scorer.receiver!          
+        }
+
+        scorer.server!
       }
       it { expect(scorer.score).to eq 'ADV-40' }
     end    

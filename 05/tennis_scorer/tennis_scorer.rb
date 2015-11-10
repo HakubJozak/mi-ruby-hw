@@ -26,6 +26,8 @@ class TennisScorer
   private
 
   def increase!(who,other)
+    return if @players.include?(:x)
+
     a = @players[who]
     b = @players[other]
 
@@ -36,6 +38,9 @@ class TennisScorer
       @players[who] = 30
     when a == 30
       @players[who] = 40
+    when a == :ADV
+      @players[who] = 1
+      @players[other] = :x
     when a == 40
       if b == :ADV
         @players[who] = 40
@@ -44,10 +49,10 @@ class TennisScorer
         @players[who] = :ADV
       else
         @players[who] = 1
-        @players[other] = 'x'
+        @players[other] = :x
       end
     else
-      raise 'Oh darn. Unxptected case!'
+      raise "Oh darn. Unexpected case #{@players.inspect}!"
     end
   end
 
